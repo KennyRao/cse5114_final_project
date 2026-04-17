@@ -170,6 +170,7 @@ def write_batch_to_snowflake(batch_df: DataFrame, batch_id: int) -> None:
                 auto_create_table=False,
                 overwrite=False,
                 quote_identifiers=False,
+                use_logical_type=True,
             )
 
         if not minute_pdf.empty:
@@ -180,6 +181,7 @@ def write_batch_to_snowflake(batch_df: DataFrame, batch_id: int) -> None:
                 auto_create_table=False,
                 overwrite=False,
                 quote_identifiers=False,
+                use_logical_type=True,
             )
     finally:
         conn.close()
