@@ -169,6 +169,7 @@ def write_batch_to_snowflake(batch_df: DataFrame, batch_id: int) -> None:
                 os.environ.get("ARTICLE_MATCH_TABLE", "article_company_match"),
                 auto_create_table=False,
                 overwrite=False,
+                quote_identifiers=False,
             )
 
         if not minute_pdf.empty:
@@ -178,6 +179,7 @@ def write_batch_to_snowflake(batch_df: DataFrame, batch_id: int) -> None:
                 os.environ.get("MART_MINUTE_TABLE", "mart_company_sentiment_minute"),
                 auto_create_table=False,
                 overwrite=False,
+                quote_identifiers=False,
             )
     finally:
         conn.close()
