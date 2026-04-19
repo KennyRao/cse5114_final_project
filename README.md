@@ -37,7 +37,7 @@ This project ingests financial-news events in near real time, detects company me
 - Ability to run SQL scripts in Snowsight worksheets.
 
 ### LinuxLab prerequisites
-- Start LinuxLab compute session using class flow (example shown below uses `server-airflow25 -c 4`).
+- Start LinuxLab compute session using class flow in the [instruction](https://docs.google.com/document/d/1nfv4KBd99ZV8W81O0fPa0i-HJHsjqMDbvCJMSsaQ7w8/edit?usp=sharing) (example shown below uses `server-airflow25 -c 4`).
 - Kafka installed at `/opt/kafka`.
 - Spark installed at `/opt/spark`.
 - 3 terminals available for Kafka, Spark, and producer.
