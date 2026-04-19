@@ -131,7 +131,7 @@ python streaming/producer/gdelt_backfill.py --days-back 14 --window-hours 6 --ma
 
 Then run live ingestion:
 ```bash
-python streaming/producer/news_producer.py --source gdelt --poll-seconds 60
+python streaming/producer/news_producer.py --source gdelt --poll-seconds 300
 ```
 
 Optional source mode:

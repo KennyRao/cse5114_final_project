@@ -21,8 +21,8 @@ export LOG_LEVEL="INFO"
 # GDELT live/backfill defaults (primary practical source for demo/backfill)
 export GDELT_MODE="docapi"
 export GDELT_QUERY='("stock market" OR earnings OR inflation OR "Federal Reserve" OR Apple OR Microsoft OR NVIDIA)'
-export GDELT_LOOKBACK_MINUTES="180"
-export GDELT_MAX_RECORDS_PER_POLL="100"
+export GDELT_LOOKBACK_MINUTES="60"
+export GDELT_MAX_RECORDS_PER_POLL="25"
 # export GDELT_RSS_FEED_URLS="https://example.com/gdelt-rss-feed.xml"
 
 # NewsAPI is optional
