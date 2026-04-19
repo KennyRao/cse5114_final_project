@@ -199,6 +199,7 @@ Optional source modes:
 
 ```sql
 SELECT COUNT(*) AS row_count FROM FINAL_PROJECT.article_company_match;
+SELECT COUNT(*) AS base_row_count FROM FINAL_PROJECT.article_company_match_base;
 
 SELECT bucket_minute, company_id, article_count, avg_sentiment
 FROM FINAL_PROJECT.mart_company_sentiment_minute

@@ -56,4 +56,5 @@ export SNOWFLAKE_PRIVATE_KEY_FILE="$HOME/path/to/rsa_key.p8"
 
 export COMPANY_ALIAS_TABLE="dim_company_aliases"
 export ARTICLE_MATCH_TABLE="article_company_match"
+export ARTICLE_MATCH_BASE_TABLE="article_company_match_base"
 export MART_MINUTE_TABLE="mart_company_sentiment_minute"

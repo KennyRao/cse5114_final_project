@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import logging
 import os
-import pandas as pd
 import snowflake.connector
 from snowflake.connector.pandas_tools import write_pandas
 from pyspark.sql import DataFrame, SparkSession
@@ -128,7 +127,19 @@ def match_companies(df: DataFrame, aliases: DataFrame) -> DataFrame:
     return (
         df.crossJoin(F.broadcast(aliases))
         .where(F.instr(F.lower(F.col("article_text")), F.col("alias_norm")) > 0)
-        .select("event_id", "url_hash", "published_at_ts", "company_id", "sentiment_score", "source_name")
+        .select(
+            "event_id",
+            "provider",
+            "provider_article_id",
+            "url",
+            "url_hash",
+            "published_at_ts",
+            "event_ingested_at_ts",
+            "company_id",
+            "sentiment_score",
+            "source_name",
+            "article_text",
+        )
     )
 
 
@@ -160,6 +171,25 @@ def write_batch_to_snowflake(batch_df: DataFrame, batch_id: int) -> None:
         .toPandas()
     )
 
+    base_pdf = (
+        batch_df.select(
+            "event_id",
+            "provider",
+            "provider_article_id",
+            "url",
+            "url_hash",
+            "published_at_ts",
+            "event_ingested_at_ts",
+            "company_id",
+            "sentiment_score",
+            "source_name",
+            "article_text",
+        )
+        .dropDuplicates(["event_id", "company_id"])
+        .withColumn("ingest_batch_id", F.lit(str(batch_id)))
+        .toPandas()
+    )
+
     conn = sf_connect()
     try:
         if not article_pdf.empty:
@@ -167,6 +197,17 @@ def write_batch_to_snowflake(batch_df: DataFrame, batch_id: int) -> None:
                 conn,
                 article_pdf,
                 os.environ.get("ARTICLE_MATCH_TABLE", "article_company_match"),
+                auto_create_table=False,
+                overwrite=False,
+                quote_identifiers=False,
+                use_logical_type=True,
+            )
+
+        if not base_pdf.empty:
+            write_pandas(
+                conn,
+                base_pdf,
+                os.environ.get("ARTICLE_MATCH_BASE_TABLE", "article_company_match_base"),
                 auto_create_table=False,
                 overwrite=False,
                 quote_identifiers=False,
