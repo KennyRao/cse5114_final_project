@@ -97,7 +97,9 @@ Run:
 - `snowflake/tests/pr1_realtime_base_smoke.sql`
 - `snowflake/tests/pr2_unified_reporting_smoke.sql`
 
-## Run the current pipeline (3 terminals)
+## Run the current pipeline
+
+We need 3 separate terminals.
 
 ### Terminal 1: Kafka
 ```bash
